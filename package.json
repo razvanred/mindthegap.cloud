@@ -1,0 +1,19 @@
+{
+  "name": "mindthegap.cloud",
+  "version": "1.0.0",
+  "description": "Simple RESTful API for MindTheGap! project",
+  "main": "server.js",
+  "scripts": {
+    "start": "nodemon server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Razvan Rosu <razvanred.work@gmail.com>",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "express": "^4.16.2",
+    "mongoose": "^5.0.9",
+    "morgan": "^1.9.0",
+    "nodemon": "^1.17.1"
+  }
+}
