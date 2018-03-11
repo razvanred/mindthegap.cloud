@@ -17,11 +17,24 @@ const ContributorSchema = mongoose.Schema({
         type: Date,
         default: Date.now()
     },
-    email: { type: String, required: true, unique: true, trim: true },
+    email: {
+        type: String,
+        required: true,
+        unique: true,
+        trim: true,
+        match: /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/
+    },
     username: {
         type: String,
         unique: true,
-        trim: true
+        trim: true,
+        required: true,
+        minlength: 1
+    },
+    password: {
+        type: String,
+        required: true,
+        minlength: 6
     }
 });
 

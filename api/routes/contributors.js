@@ -1,32 +1,16 @@
 const express = require('express');
 const router = express.Router();
-const mongoose = require('mongoose');
 
-const Contributor = require('../models/contributor');
+const checkAuth = require('../middleware/check-auth');
+const ContributorRoutes = require('../controllers/contributors');
 
-router.get('/', (req, res, next) => {
-    Contributor.find().select('_id details joinDate email username').exec().then(docs => {
-        res.status(200).json(docs);
-    }).catch(err=>res.status(500).json({error:err}));
-});
+router.get('/', ContributorRoutes.getAll);
+router.get('/:id', ContributorRoutes.getById);
 
-router.get('/:id',(req,res,next)=>{
-    Contributor.findById(req.body.id).select('_id details joinDate username email').exec().then(docs=>{
-        res.status(200).json(docs);
-    }).catch(err=>res.status(500).json({error:err}));
-});
+router.post('/signup', ContributorRoutes.createOne);
+router.post('/login', ContributorRoutes.login);
 
-router.post('/', (req, res, next) => {
-    const contributor = new Contributor({
-        _id: new mongoose.Types.ObjectId(),
-        details: req.body.details,
-        email: req.body.email,
-        username: req.body.username
-    });
-    console.log(contributor);
-    contributor.save().then(result => {
-        res.status(201).response(result);
-    }).catch(err=>res.status(500).json({error:err}));
-});
+router.delete('/all', ContributorRoutes.clearAll);
+router.delete('/', checkAuth, ContributorRoutes.deleteMe);
 
-module.exports=router;
+module.exports = router;
